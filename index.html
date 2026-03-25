@@ -1,0 +1,78 @@
+<div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:8px;">
+  <span style="display:inline-flex;align-items:center;gap:4px;margin-right:16px;"><span style="width:10px;height:10px;border-radius:2px;background:#7F77DD;display:inline-block;"></span>AI 제작</span>
+  <span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;display:inline-block;"></span>실사 제작</span>
+</div>
+<div style="position:relative;width:100%;height:320px;">
+  <canvas id="rtChart"></canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('rtChart'), {
+  type: 'bar',
+  data: {
+    labels: [
+      '서울 2053\n(AI)', '지옥에서\n구원자(AI)', '블러드\n바운드(AI)',
+      'Ms CEO\n(실사)', '내 언니\n(실사)', '불꽃얼음\n(AI)', '30년의\n잠(실사)',
+      'Blood\nBones(실사)', 'Farmer\nDad(실사)', 'Too Late\n(AI)', 'Wrong\nSperm(실사)', 'Five-Star\nGeneral(실사)'
+    ],
+    datasets: [
+      {
+        label: '최단 화',
+        data: [40, 45, 87, 66, 77, 105, 78, 116, 64, 128, 64, 107],
+        backgroundColor: [
+          '#AFA9EC','#AFA9EC','#AFA9EC',
+          '#9FE1CB','#9FE1CB','#AFA9EC','#9FE1CB',
+          '#9FE1CB','#9FE1CB','#AFA9EC','#9FE1CB','#9FE1CB'
+        ],
+        borderRadius: 4,
+        borderSkipped: false,
+      },
+      {
+        label: '최장 화',
+        data: [74, 75, 96, 183, 149, 155, 429-78, 241-116, 196-64, 228-128, 127-64, 203-107],
+        backgroundColor: [
+          '#7F77DD','#7F77DD','#7F77DD',
+          '#1D9E75','#1D9E75','#7F77DD','#1D9E75',
+          '#1D9E75','#1D9E75','#7F77DD','#1D9E75','#1D9E75'
+        ],
+        borderRadius: 4,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        stacked: true,
+        ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 0 },
+        grid: { display: false }
+      },
+      y: {
+        stacked: true,
+        title: { display: true, text: '초(sec)', font: { size: 11 } },
+        ticks: {
+          callback: v => {
+            const m = Math.floor(v/60), s = v%60;
+            return m + ':' + String(s).padStart(2,'0');
+          },
+          font: { size: 11 }
+        }
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const raw = ctx.raw;
+            const m = Math.floor(raw/60), s = raw%60;
+            return ctx.dataset.label + ': +' + m + ':' + String(s).padStart(2,'0');
+          }
+        }
+      }
+    }
+  }
+});
+</script>
